@@ -1,0 +1,11 @@
+{
+    "cervezitas":[
+    {"id": 1, "name": "IPA ARGENTA"},
+    {"id": 2, "name": "IPA SESSION"},
+    {"id": 3, "name": "OLD ALE"},
+    {"id": 4, "name": "COCO SCOTTISH"},
+    {"id": 5, "name": "PILSEN"},
+    {"id": 6, "name": "HOPPY PILSEN"},
+    {"id": 7, "name": "ALTA BARDA"}
+]
+}

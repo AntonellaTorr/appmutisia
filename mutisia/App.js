@@ -7,8 +7,9 @@ import Form from './components/Form/Form';
 export default function App() {
   return (
     <View style={styles.container}>
+      <Header/>
+  
       <Form/>
-    
       <StatusBar style="auto" />
       
     </View>
@@ -17,9 +18,17 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#0B0B0B',
-  
+    display:"flex",
+    backgroundColor: 'black',
+    borderWidth:10,
+    borderColor:"white",
+    //0B0B0B
+  },
+  cont:{
+    flex:1,
+    height:"20",
+    borderWidth:20,
+    borderColor:"red",
   },
   text:{
     color: "white"

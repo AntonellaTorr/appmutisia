@@ -1,15 +1,64 @@
-import React from "react";
-
-import { Text, TextInput, Picker,View, StyleSheet, useState} from "react-native";
-import Header from "../Header/Header";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View, StyleSheet ,Alert} from "react-native";
 import RNPickerSelect from 'react-native-picker-select';
-export default function Form() {
 
+
+
+export default function Form() {
+  const BASE_URL = 'http://localhost:3000/api';
+  const [amargor, setAmargor] = useState(null);
+  const [nombre, setNombre] = useState("");
+  const [graduacion, setGraduacion] = useState(null);
+  // Función para realizar solicitudes POST usando fetch
+  const postCerveza = async (endpoint, data) => {
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error en la solicitud');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
   
+  const placeholder = {
+    label: 'Selecciona el nivel de amargor',
+    value: null,
+    color: 'black', // Puedes personalizar el color del placeholder aquí
+  };
+
+  const onPress = async () => {
+    try {
+      const data = {
+        nombre,
+        amargor,
+        graduacion: parseFloat(graduacion),
+      };
+
+      const response = await postCerveza('/cervezas', data);
+
+      Alert.alert('Cerveza registrada', `Se ha registrado la cerveza ${response.nombre}`);
+      setNombre('');
+      setAmargor(null);
+      setGraduacion('');
+      setDetalle('');
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error', 'Hubo un problema al registrar la cerveza. Inténtalo nuevamente.');
+    }
+  };
+
   return (
-    
-    <View>
+    <View style={styles.container}>
       <View>
         <Text style={styles.title}>Cargar Cerveza</Text>
       </View>
@@ -18,41 +67,41 @@ export default function Form() {
           style={styles.input}
           placeholder="Ingrese el nombre"
           placeholderTextColor={"white"}
-        ></TextInput>
-       
+          onChangeText={setNombre}
+          value={nombre}
+        />
         <TextInput
           style={styles.input}
           placeholder="Ingrese la graduación"
           keyboardType="numeric"
           placeholderTextColor={"white"}
-        ></TextInput>
+          onChangeText={setGraduacion}
+          value={graduacion}
+        />
 
-      
+
+        <RNPickerSelect
+          onValueChange={setAmargor}
+          items={[
+            { label: 'Bajo', value: 'Bajo' },
+            { label: 'Suave', value: 'Suave' },
+            { label: 'Medio', value: 'Medio' },
+          ]}
+          style={pickerSelectStyles} // Aplicar estilos aquí
+          placeholder={placeholder} // Definir el placeholder aquí
+        />
+
+
+        <TouchableOpacity style={styles.button} onPress={onPress}>
+          <Text>Registrar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-      fontSize: 16,
-      paddingVertical: 12,
-      paddingHorizontal: 10,
-      borderWidth: 1,
-      borderColor: 'gray',
-      borderRadius: 4,
-      color: 'black',
-    },
-    inputAndroid: {
-      fontSize: 16,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      borderWidth: 0.5,
-      borderColor: 'gray',
-      borderRadius: 8,
-      color: 'black',
-    },
-  });
+
 const styles = StyleSheet.create({
+ 
   title: {
     color: "white",
     textAlign: "left",
@@ -62,16 +111,60 @@ const styles = StyleSheet.create({
     fontWeight: "300",
   },
   input: {
+    fontSize: 16,
     borderColor: "white",
     borderWidth: 0.5,
     borderRadius: 3,
+    color: "white",
+    margin: 15,
+    padding: 5,
+    borderRadius: 5,
   },
   inputContainer: {
     justifyContent: "flex-start",
-    paddingTop: 60,
-    paddingLeft: 25,
-    paddingTop: 20,
-    width: "90%",
+    margin: 20,
+    padding: 5,
+    borderRadius: 5,
   },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    marginTop: 50,
+    marginHorizontal: 70,
+    borderRadius: 10,
+  },
+});
+
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 5,
+    color: 'white',
+    padding:5,
+    margin:15,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: 'white',
+    paddingRight: 30,
+  },
+  placeholder: {
+    color: 'white',
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 15,
+    padding: 6,
+  },
+  // Estilo del texto de la opción seleccionada
+  selectedItemTextColor: 'white',
 });
 

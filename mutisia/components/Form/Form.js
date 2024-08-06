@@ -5,29 +5,32 @@ import RNPickerSelect from 'react-native-picker-select';
 
 
 export default function Form() {
-  const BASE_URL = 'http://localhost:3000/api';
   const [amargor, setAmargor] = useState(null);
   const [nombre, setNombre] = useState("");
   const [graduacion, setGraduacion] = useState(null);
   // Función para realizar solicitudes POST usando fetch
   const postCerveza = async (endpoint, data) => {
   try {
-    const response = await fetch(`${BASE_URL}${endpoint}`, {
+    console.log(endpoint);
+    const response = await fetch(`${'http://10.0.0.1:3000/api/'}${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     });
-
+    
     if (!response.ok) {
       throw new Error('Error en la solicitud');
+    }else{
+      console.log("en el ese");
     }
 
     return await response.json();
   } catch (error) {
     throw error;
   }
+
 };
   
   const placeholder = {
@@ -44,7 +47,7 @@ export default function Form() {
         graduacion: parseFloat(graduacion),
       };
 
-      const response = await postCerveza('/cervezas', data);
+      const response = await postCerveza('cervezas', data);
 
       Alert.alert('Cerveza registrada', `Se ha registrado la cerveza ${response.nombre}`);
       setNombre('');

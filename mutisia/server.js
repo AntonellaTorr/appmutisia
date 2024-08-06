@@ -15,6 +15,7 @@ const cervezas = [
 
 // Método GET para obtener todas las cervezas con paginación
 app.get("/api/cervezas", (req, res) => {
+    console.log("en el get");
     const cantidadDeseada = parseInt(req.query.cantidad);
     const inicio = parseInt(req.query.from) || 0;
 
@@ -43,6 +44,7 @@ app.get("/api/cervezas/:codigo", (req, res) => {
 
 // Método POST para agregar una nueva cerveza
 app.post("/api/cervezas", (req, res) => {
+    console.log("en el post");
     const { error } = validarCerveza(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);

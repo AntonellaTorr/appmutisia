@@ -8,11 +8,12 @@ export default function Form() {
   const [amargor, setAmargor] = useState(null);
   const [nombre, setNombre] = useState("");
   const [graduacion, setGraduacion] = useState(null);
-  // Función para realizar solicitudes POST usando fetch
+
   const postCerveza = async (endpoint, data) => {
   try {
     console.log(endpoint);
-    const response = await fetch(`${'http://10.0.0.1:3000/api/'}${endpoint}`, {
+    //colocar la ip de la compu 
+    const response = await fetch(`${'http://127.0.1.1:3000/api/'}${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ export default function Form() {
   const placeholder = {
     label: 'Selecciona el nivel de amargor',
     value: null,
-    color: 'black', // Puedes personalizar el color del placeholder aquí
+    color: 'black',
   };
 
   const onPress = async () => {
@@ -90,8 +91,8 @@ export default function Form() {
             { label: 'Suave', value: 'Suave' },
             { label: 'Medio', value: 'Medio' },
           ]}
-          style={pickerSelectStyles} // Aplicar estilos aquí
-          placeholder={placeholder} // Definir el placeholder aquí
+          style={pickerSelectStyles} 
+          placeholder={placeholder} 
         />
 
 

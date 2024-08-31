@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, StyleSheet ,Alert} from "react-native";
 import RNPickerSelect from 'react-native-picker-select';
+import Constants from "expo-constants";
+
 
 
 
@@ -13,7 +15,7 @@ export default function Form() {
   try {
     console.log(endpoint);
     //colocar la ip de la compu 
-    const response = await fetch(`${'http://127.0.1.1:3000/api/'}${endpoint}`, {
+    const response = await fetch(`${'http://127.0.1.1/api/'}${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

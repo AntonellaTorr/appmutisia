@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Header from './components/Header/Header';
 import Body from './components/Body/Body';
 import Form from './components/Form/Form';
@@ -7,9 +7,9 @@ import Form from './components/Form/Form';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Header/>
+      {/* <Header/> */}
   
-      <Form/>
+      { <Form/> }
       <StatusBar style="auto" />
       
     </View>
@@ -18,10 +18,11 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    width:Dimensions.get("window").width,
+    height:Dimensions.get("window").height,
     display:"flex",
     backgroundColor: 'black',
-    borderWidth:10,
-    borderColor:"white",
+
     //0B0B0B
   },
   cont:{

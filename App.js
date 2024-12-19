@@ -2,9 +2,9 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, View } from 'react-native';
-import CervezaLista from './components/cervezaLista';
-import CervezaDetalle from './components/cervezaDetalle';
-import Form from './components/Form';
+import Home from './Screens/Home/Home';
+import CervezaDetalle from './Screens/DetailCerveza/cervezaDetalle';
+import Form from './Screens/Form/Form';
 
 const Stack = createStackNavigator();
 
@@ -12,10 +12,10 @@ const App = () => {
   console.log("App Component Rendering");
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="CervezaLista">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen 
-          name="CervezaLista" 
-          component={CervezaLista} 
+          name="Home" 
+          component={Home} 
           options={{ title: 'Bienvenidx!, qué vas a tomar hoy?' }} 
         />
         <Stack.Screen 

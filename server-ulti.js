@@ -21,7 +21,6 @@ app.get("/api/cervezas", (req, res) => {
     const inicio = parseInt(req.query.from) || 0;
 
 
-
     if (cantidadDeseada === null) {
         // Si no se especifica cantidad, devolver todas las cervezas
         console.log("no se especifico")

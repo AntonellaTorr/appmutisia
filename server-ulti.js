@@ -1,4 +1,6 @@
+//utilizamos Joi para realizar comprobaciones en los datos 
 const Joi = require("joi");
+//utilizamos express para un manejo mas claro del servidor
 const express = require("express");
 const app = express();
 const cors = require('cors');
@@ -14,7 +16,6 @@ const path = require('path');
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 
-// Método GET para obtener todas las cervezas con paginación
 app.get("/api/cervezas", (req, res) => {
     console.log("en el get");
     const cantidadDeseada = req.query.cantidad ? parseInt(req.query.cantidad) : null;

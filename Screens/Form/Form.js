@@ -77,13 +77,17 @@ export default function Form({ navigation }) {
           value={nombre}
         />
         <TextInput
-          style={styles.input}
-          placeholder="Ingrese la graduación"
-          keyboardType="numeric"
-          placeholderTextColor={"white"}
-          onChangeText={setGraduacion}
-          value={graduacion}
-        />
+        style={styles.input}
+        placeholder="Ingrese la graduación"
+        keyboardType="numeric"
+        placeholderTextColor={"white"}
+        onChangeText={(text) => {
+          // Reemplazar coma por punto antes de guardar
+          const formattedText = text.replace(',', '.');
+          setGraduacion(formattedText);
+        }}
+        value={graduacion}
+      />
         <RNPickerSelect
           onValueChange={setAmargor}
           items={[

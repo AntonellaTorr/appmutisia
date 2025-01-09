@@ -10,6 +10,7 @@ const Home = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
+  //se ejecuta el fetchData cuando hay un cambio en la page o los route.params y se solicita recargar los datos
 
   useEffect(() => {
     fetchData();

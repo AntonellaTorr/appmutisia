@@ -15,7 +15,36 @@ const path = require('path');
 // Servir la carpeta 'assets' como archivos estáticos
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
+app.get("/api/cervezas/paginadas", (req, res) => {
+    console.log("en en paginadas")
+    const page = parseInt(req.query.page) || 1; // Página actual (por defecto 1)
+    const limit = parseInt(req.query.limit) || 10; // Cantidad de resultados por página (por defecto 10)
 
+    // Calcular inicio y fin
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    // Resultados paginados
+    const results = cervezas.slice(startIndex, endIndex);
+
+    const totalItems = cervezas.length; // Esto es lo que falta agregar
+
+    // Meta información
+    const totalPages = Math.ceil(cervezas.length / limit);
+
+    // Enviar los resultados junto con la información de la paginación
+    console.log("antes de retornar")
+    res.status(200).json({
+        currentPage: page,
+        totalPages,
+        pageSize: results.length,
+        totalItems,
+        results,
+    });
+});
+
+
+/*
 app.get("/api/cervezas", (req, res) => {
     console.log("en el get");
     const cantidadDeseada = req.query.cantidad ? parseInt(req.query.cantidad) : null;
@@ -42,6 +71,7 @@ app.get("/api/cervezas", (req, res) => {
     res.status(200).send(cervezasLimitadas);
 });
 
+*/
 // Método GET para obtener una cerveza por su código
 app.get("/api/cervezas/:codigo", (req, res) => {
     const cerveza = cervezas.find((c) => c.codigo === parseInt(req.params.codigo));
